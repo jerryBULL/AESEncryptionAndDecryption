@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>線上AES加解密</title>
-        <link rel="icon" href="./Content/img/lock.ico" type="image/x-icon">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>線上AES加解密</title>
+
+        <link rel="icon" href="./Content/Image/Favicon/favicon.ico" sizes="any"> <!-- 瀏覽器 icon -->
+        <link rel="shortcut icon" href="./Content/Image/Favicon/favicon.ico" type="image/x-icon"> <!-- 網站在瀏覽器標簽欄和書簽中顯示的圖標 -->
+        <meta property="og:image" content="./Content/Image/Favicon/512x512.png?v=1" /> <!-- 分享網頁時會顯示的縮圖 -->
+        <meta name="mobile-web-app-capable" content="yes"> <!-- 是否使用全屏顯示 -->
+
+        <!-- iOS Safari Set Up -->
+        <link rel="apple-touch-icon" href="./Content/Image/Favicon/182x182.png?v=1"> <!-- 新增到桌面時的圖示 -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"> <!-- 新增到桌面時 開啟後 上方狀態欄顯示顏色  -->
+        <meta name="apple-mobile-web-app-capable" content="yes"> <!-- 是否使用全屏顯示 -->
+
         <!-- jquery-confirm start -->
-        <link rel="stylesheet" href="./Content/css/lib/jquery-confirm/bundled.css" />
-        <link rel="stylesheet" href="./Content/css/lib/jquery-confirm/jquery-confirm.min.css" />
+        <link rel="stylesheet" href="./Content/CSS/lib/jquery-confirm/bundled.css" />
+        <link rel="stylesheet" href="./Content/CSS/lib/jquery-confirm/jquery-confirm.min.css" />
         <!-- jquery-confirm end -->
         <!-- jquery-ui start -->
-        <link rel="stylesheet" href="./Content/css/lib/jquery-ui/jquery-ui.structure.min.css" />
-        <link rel="stylesheet" href="./Content/css/lib/jquery-ui/jquery-ui.theme.min.css" />
+        <link rel="stylesheet" href="./Content/CSS/lib/jquery-ui/jquery-ui.structure.min.css" />
+        <link rel="stylesheet" href="./Content/CSS/lib/jquery-ui/jquery-ui.theme.min.css" />
         <!-- jquery-ui end -->
-        <link rel="stylesheet" href="./Content/css/common.css" />
-        <link rel="stylesheet" href="./Content/css/style.css" />
+        <link rel="stylesheet" href="./Content/CSS/common.css" />
+        <link rel="stylesheet" href="./Content/CSS/style.css" />
 
-        <script src="./Content/js/lib/vue.min.js"></script>
-        <script src="./Content/js/lib/jquery-3.5.1.min.js"></script>
-        <script src="./Content/js/lib/jquery-confirm/jquery-confirm.min.js"></script>
-        <script src="./Content/js/lib/jquery-ui/jquery-ui.min.js"></script>
-        <script src="./Content/js/function.js"></script>
-        <script src="./Content/js/lib/aes_2.js"></script>
-        <script src="./Content/js/lib/sha256.js"></script>
+        <script src="./Content/JS/lib/vue.min.js"></script>
+        <script src="./Content/JS/lib/jquery-3.5.1.min.js"></script>
+        <script src="./Content/JS/lib/jquery-confirm/jquery-confirm.min.js"></script>
+        <script src="./Content/JS/lib/jquery-ui/jquery-ui.min.js"></script>
+        <script src="./Content/JS/function.js"></script>
+        <script src="./Content/JS/lib/aes_2.js"></script>
+        <script src="./Content/JS/lib/sha256.js"></script>
     </head>
 
     <body>
@@ -32,8 +44,8 @@
             <div class="box en_and_de_box">
                 <div class="en_and_de_box-input_box">
                     <input :type="need_show_pwd ? 'text' : 'password'" v-model="en_de_pwd" placeholder="加解密密碼">
-                    <img v-show="!need_show_pwd" @click="need_show_pwd = !need_show_pwd" src="./Content/img/view.png">
-                    <img v-show="need_show_pwd" @click="need_show_pwd = !need_show_pwd" src="./Content/img/hidden.png">
+                    <img v-show="!need_show_pwd" @click="need_show_pwd = !need_show_pwd" src="./Content/Image/view.png">
+                    <img v-show="need_show_pwd" @click="need_show_pwd = !need_show_pwd" src="./Content/Image/hidden.png">
                 </div>
                 <div class="text_box">
                     <textarea placeholder="需解密文字" v-model="cipher_text"></textarea>
