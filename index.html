@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>線上AES加解密</title>
+        <link rel="icon" href="./Content/img/lock.ico" type="image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- jquery-confirm start -->
+        <link rel="stylesheet" href="./Content/css/lib/jquery-confirm/bundled.css" />
+        <link rel="stylesheet" href="./Content/css/lib/jquery-confirm/jquery-confirm.min.css" />
+        <!-- jquery-confirm end -->
+        <!-- jquery-ui start -->
+        <link rel="stylesheet" href="./Content/css/lib/jquery-ui/jquery-ui.structure.min.css" />
+        <link rel="stylesheet" href="./Content/css/lib/jquery-ui/jquery-ui.theme.min.css" />
+        <!-- jquery-ui end -->
+        <link rel="stylesheet" href="./Content/css/common.css" />
+        <link rel="stylesheet" href="./Content/css/style.css" />
+
+        <script src="./Content/js/lib/vue.min.js"></script>
+        <script src="./Content/js/lib/jquery-3.5.1.min.js"></script>
+        <script src="./Content/js/lib/jquery-confirm/jquery-confirm.min.js"></script>
+        <script src="./Content/js/lib/jquery-ui/jquery-ui.min.js"></script>
+        <script src="./Content/js/function.js"></script>
+        <script src="./Content/js/lib/aes_2.js"></script>
+        <script src="./Content/js/lib/sha256.js"></script>
+    </head>
+
+    <body>
+        <div id="aes_vue_box--js" class="main_box">
+            <div class="box title_box">
+                <p>AES線上加解密</p>
+            </div>
+            <div class="box en_and_de_box">
+                <div class="en_and_de_box-input_box">
+                    <input :type="need_show_pwd ? 'text' : 'password'" v-model="en_de_pwd" placeholder="加解密密碼">
+                    <img v-show="!need_show_pwd" @click="need_show_pwd = !need_show_pwd" src="./Content/img/view.png">
+                    <img v-show="need_show_pwd" @click="need_show_pwd = !need_show_pwd" src="./Content/img/hidden.png">
+                </div>
+                <div class="text_box">
+                    <textarea placeholder="需解密文字" v-model="cipher_text"></textarea>
+                    <textarea placeholder="需加密文字" v-model="plain_text"></textarea>
+                </div>
+                <div class="btn_box">
+                    <button @click="Decrypt">解密</button>
+                    <button @click="Encrypt">加密</button>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        let aes_vue_box = new Vue({
+            el: "#aes_vue_box--js",
+            data: function () {
+                return {
+                    en_de_pwd: '',
+                    need_show_pwd: false,
+                    cipher_text: '',
+                    plain_text: '',
+                }
+            },
+            computed: { },
+            methods: {
+                Encrypt: function() {
+                    //加密
+                    var v_this = this;
+
+                    let plain_text  = v_this.plain_text;
+                    let en_de_pwd   = v_this.en_de_pwd;
+                    let cipher_text = CryptoJS.AES.encrypt(plain_text, en_de_pwd).toString();
+
+                    v_this.cipher_text = cipher_text;
+                    v_this.en_de_pwd   = "";
+                },
+                Decrypt: function() {
+                    //解密
+                    var v_this = this;
+
+                    let cipher_text = v_this.cipher_text;
+                    let en_de_pwd   = v_this.en_de_pwd;
+
+                    if(en_de_pwd === ''){
+                        alert.error('缺少必要參數');
+                        return false;
+                    }
+
+                    let plain_text  = CryptoJS.AES.decrypt(cipher_text, en_de_pwd).toString(CryptoJS.enc.Utf8);
+
+                    if (plain_text === "") {
+                        alert.error('密碼錯誤');
+                        return false;
+                    } else {
+                        v_this.plain_text = plain_text;
+                    }
+                    v_this.en_de_pwd   = "";
+                },
+            }
+        })
+    </script>
+</html>
